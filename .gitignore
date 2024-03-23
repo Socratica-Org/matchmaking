@@ -1,0 +1,7 @@
+.venv
+
+# Ignore the data
+data.csv
+
+# Ignore the embeddings db
+chromadb
