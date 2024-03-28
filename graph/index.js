@@ -8,10 +8,10 @@ const LINK_CONNECTION_FROM_COLOR = 0xffffff; // (#ffffff)
 const LINK_CONNECTION_TO_COLOR = 0xffe213; // (#ffe213)
 const SPRING_LENGTH = 110;
 const SPRING_COEFF = 0.000001;
-const GRAVITY = -3;
-const THETA = 0.8;
-const DRAG_COEFF = 0.9;
-const TIME_STEP = 4;
+const GRAVITY = -2;
+const THETA = 0.1;
+const DRAG_COEFF = 0.3;
+const TIME_STEP = 1;
 
 var createSettingsView = require("config.pixel");
 var query = require("query-string").parse(window.location.search.substring(1));
