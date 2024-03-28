@@ -1,4 +1,10 @@
+import { Graph } from "@/components/Graph";
+
 const Page = () => {
-  return <div>Page</div>;
+  return (
+    <div>
+      <Graph />
+    </div>
+  );
 };
 export default Page;
