@@ -1,5 +1,7 @@
 import json
-from pydantic import BaseModel, RootModel
+
+from pydantic import BaseModel
+
 import chromadb
 
 chroma_client = chromadb.PersistentClient(path="chromadb")
@@ -10,20 +12,25 @@ print(collection)
 N_RESULTS = 10
 DISTANCE_THRESHOLD = 6
 
+
 class NodeData(BaseModel):
     name: str
     major: str
     response: str
 
+
 class Node(BaseModel):
     id: str
     data: NodeData
+
 
 class Link(BaseModel):
     source: str
     target: str
 
-results = collection.get(ids=None,  include=["metadatas", "documents", "embeddings"])
+
+results = collection.get(
+    ids=None,  include=["metadatas", "documents", "embeddings"])
 if results["embeddings"] is None or results["metadatas"] is None:
     raise ValueError("No embeddings found in the collection")
 
@@ -80,7 +87,7 @@ for i, embedding in enumerate(results["embeddings"]):
 
 # print(nodes)
 # print(links)
-            
+
 print("All Processed.")
 
 with open("graphData.json", "w") as f:
