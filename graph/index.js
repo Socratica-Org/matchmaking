@@ -1,18 +1,18 @@
 const graphConfig = {
   nodeColor: 0xe8c6a5, // (#C6492C)
   nodeSize: 25,
-  nodeHoverColor: 0x121212, // (#ffe213)
+  nodeHoverColor: 0xffe213, // (#ffe213)
   nodeConnectionColor: 0x262626, // (#a9ba22)
   linkFromColor: 0x732196, // (#a33f3f)
-  linkToColor: 0x82a8f5, // (#35130b)
-  linkConnectionFromColor: 0x121212, // (#ffffff)
-  linkConnectionToColor: 0x121212, // (#ffe213)
+  linkToColor: 0xc6492c, // (#35130b)
+  linkConnectionFromColor: 0xffffff, // (#ffffff)
+  linkConnectionToColor: 0xffe213, // (#ffe213)
   springLength: 200,
-  springCoeff: 0.0001,
-  gravity: -2,
+  springCoeff: 0.000001,
+  gravity: -3,
   theta: 0.2,
   dragCoeff: 0.3,
-  timeStep: 3,
+  timeStep: 1,
   backgroundColor: 0x0, // (Socratica Black)
 };
 
@@ -71,7 +71,8 @@ function showNodeDetails(node) {
   // Update node details
   document.getElementById("nodeName").textContent =
     node.data.name.toUpperCase();
-  document.getElementById("nodeMajor").textContent = node.data.major || "";
+  document.getElementById("nodeMajor").textContent =
+    node.data.major && node.data.major != "N/A" ? node.data.major : "";
   document.getElementById("nodeConnections").textContent = `${
     graph.getLinks(node.id)?.length || 0
   } Potential Connections`;
