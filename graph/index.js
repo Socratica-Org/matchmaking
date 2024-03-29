@@ -1,18 +1,20 @@
-const NODE_COLOR = 0xe8c6a5; // (#C6492C)
-const NODE_SIZE = 20;
-const NODE_HOVER_COLOR = 0xffe213; // (#ffe213)
-const NODE_CONNECTION_COLOR = 0xaab172; // (#a9ba22)
-const LINK_FROM_COLOR = 0x649aea; // (#a33f3f)
-const LINK_TO_COLOR = 0xebf0ff; // (#35130b)
-const LINK_CONNECTION_FROM_COLOR = 0xffffff; // (#ffffff)
-const LINK_CONNECTION_TO_COLOR = 0xffe213; // (#ffe213)
-const SPRING_LENGTH = 110;
-const SPRING_COEFF = 0.0001;
-const GRAVITY = -2;
-const THETA = 0.2;
-const DRAG_COEFF = 0.3;
-const TIME_STEP = 3;
-const BACKGROUND_COLOR = 0xfbf8ef; // (Socratica Black)
+const settings = {
+  nodeColor: 0xe8c6a5, // (#C6492C)
+  nodeSize: 20,
+  nodeHoverColor: 0xffe213, // (#ffe213)
+  nodeConnectionColor: 0xaab172, // (#a9ba22)
+  linkFromColor: 0x649aea, // (#a33f3f)
+  linkToColor: 0xebf0ff, // (#35130b)
+  linkConnectionFromColor: 0xffffff, // (#ffffff)
+  linkConnectionToColor: 0xffe213, // (#ffe213)
+  springLength: 110,
+  springCoeff: 0.0001,
+  gravity: -2,
+  theta: 0.2,
+  dragCoeff: 0.3,
+  timeStep: 3,
+  backgroundColor: 0xfbf8ef, // (Socratica Black)
+};
 
 var createSettingsView = require("config.pixel");
 var query = require("query-string").parse(window.location.search.substring(1));
@@ -29,28 +31,27 @@ var renderer = renderGraph(graph, {
   // See API: https://github.com/anvaka/ngraph.pixel/blob/master/index.js#L25
   node: () => {
     return {
-      color: NODE_COLOR,
-      size: NODE_SIZE,
+      color: settings.nodeColor,
+      size: settings.nodeSize,
     };
   },
   link: () => {
     return {
-      fromColor: LINK_FROM_COLOR,
-      toColor: LINK_TO_COLOR,
+      fromColor: settings.linkFromColor,
+      toColor: settings.linkToColor,
     };
   },
-  clearColor: BACKGROUND_COLOR, // (#121212)
+  clearColor: settings.backgroundColor, // (#121212)
 });
 
 var simulator = renderer.layout().simulator;
-simulator.springLength(SPRING_LENGTH);
-simulator.springCoeff(SPRING_COEFF);
-simulator.gravity(GRAVITY);
-simulator.theta(THETA);
-simulator.dragCoeff(DRAG_COEFF);
-simulator.timeStep(TIME_STEP);
+simulator.springLength(settings.springLength);
+simulator.springCoeff(settings.springCoeff);
+simulator.gravity(settings.gravity);
+simulator.theta(settings.theta);
+simulator.dragCoeff(settings.dragCoeff);
+simulator.timeStep(settings.timeStep);
 renderer.focus();
-
 // var settingsView = createSettingsView(renderer);
 // var gui = settingsView.gui();
 

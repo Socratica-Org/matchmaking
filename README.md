@@ -19,3 +19,26 @@ Generate embeddings
 ```sh
 python generate_embeddings.py
 ```
+
+Develop the graph:
+
+In the **graph/** directory
+
+```sh
+pnpm i
+pnpm run dev
+```
+
+For Tailwind, concurrently:
+
+```sh
+pnpm run tailwind
+```
+
+Then open **graph/index.html** in a browser.
+
+To serve:
+
+```sh
+pnpm start
+```
