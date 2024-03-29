@@ -12,6 +12,7 @@ const GRAVITY = -2;
 const THETA = 0.1;
 const DRAG_COEFF = 0.3;
 const TIME_STEP = 1;
+const BACKGROUND_COLOR = 0x121212; // (Socratica Black)
 
 var createSettingsView = require("config.pixel");
 var query = require("query-string").parse(window.location.search.substring(1));
@@ -25,6 +26,7 @@ var createLayout = require("pixel.layout");
 const layout = createLayout(graph);
 
 var renderer = renderGraph(graph, {
+  // See API: https://github.com/anvaka/ngraph.pixel/blob/master/index.js#L25
   node: () => {
     return {
       color: NODE_COLOR,
@@ -37,6 +39,7 @@ var renderer = renderGraph(graph, {
       toColor: LINK_TO_COLOR,
     };
   },
+  clearColor: BACKGROUND_COLOR, // (#121212)
 });
 
 var simulator = renderer.layout().simulator;
@@ -171,6 +174,7 @@ function showNodePanel(node) {
     document.getElementById("nodePanel").remove();
   }
   var panel = document.createElement("div");
+  panel.className = "font-tiempos-headline"; // TODO: Doesn't have tailwind highlighting
   panel.style.position = "absolute";
   panel.style.top = "0";
   panel.style.right = "0";
@@ -179,7 +183,6 @@ function showNodePanel(node) {
   panel.style.padding = "10px";
   panel.style.marginRight = "20px";
   panel.style.width = "300px";
-  panel.style.fontFamily = "'Tiempos Headline', sans-serif";
   panel.style.maxHeight = "65%";
   panel.id = "nodePanel";
   panel.innerHTML = "<h1>" + node.data.name + "</h1>";
@@ -225,21 +228,6 @@ function showInitialNodePanel() {
   document.body.appendChild(panel);
 }
 
-function showBranding() {
-  var branding = document.createElement("div");
-  branding.style.position = "absolute";
-  branding.style.top = "0";
-  branding.style.left = "0";
-  branding.style.color = "white";
-  branding.style.padding = "10px";
-  branding.style.marginLeft = "20px";
-  branding.style.width = "300px";
-  branding.style.fontFamily = "'Tiempos Headline', sans-serif";
-  branding.id = "branding";
-  branding.innerHTML = "<h1>Socratica Symposium</h1>";
-  document.body.appendChild(branding);
-}
-
 function getRandomNodeId() {
   console.log(json.nodes);
   if (json.nodes.length === 0) return null;
@@ -256,5 +244,4 @@ function cycleThroughNodes() {
   }, 5000);
 }
 
-showBranding();
 cycleThroughNodes();
