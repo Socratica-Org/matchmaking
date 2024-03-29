@@ -5,7 +5,7 @@ from pydantic import BaseModel
 import chromadb
 
 N_RESULTS = 10
-DISTANCE_THRESHOLD = 1.5
+DISTANCE_THRESHOLD = 1.2
 COLLECTION_TO_PROCESS = "time_prompt_embeddings"
 
 

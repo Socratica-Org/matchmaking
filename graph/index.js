@@ -2,13 +2,13 @@ const graphConfig = {
   nodeColor: 0xe8c6a5, // (#C6492C)
   nodeSize: 25,
   nodeHoverColor: 0xffe213, // (#ffe213)
-  nodeConnectionColor: 0x262626, // (#a9ba22)
+  nodeConnectionColor: 0xffe213, // (#a9ba22)
   linkFromColor: 0x732196, // (#a33f3f)
   linkToColor: 0xc6492c, // (#35130b)
   linkConnectionFromColor: 0xffffff, // (#ffffff)
   linkConnectionToColor: 0xffe213, // (#ffe213)
   springLength: 200,
-  springCoeff: 0.000001,
+  springCoeff: 0.00001,
   gravity: -3,
   theta: 0.2,
   dragCoeff: 0.3,
@@ -18,7 +18,7 @@ const graphConfig = {
 
 var createSettingsView = require("config.pixel");
 var query = require("query-string").parse(window.location.search.substring(1));
-const json = require("../graphData.json");
+const json = require("../summarizedGraphData.json");
 var graph = getGraphFromQueryString(query);
 var renderGraph = require("ngraph.pixel");
 var addCurrentNodeSettings = require("./nodeSettings.js");
@@ -82,11 +82,17 @@ function showNodeDetails(node) {
   const topMatchNode = graph.getNode(topMatch);
 
   const topMatchName = document.getElementById("topMatchName");
+  const topMatchResponse = document.getElementById("topMatchResponse");
 
   if (topMatch) {
-    topMatchName.textContent = topMatchNode.data.name.toUpperCase();
+    topMatchName.textContent = topMatchNode.data.name;
+    topMatchResponse.textContent = `Who ${
+      topMatchNode.data.response.charAt(0).toLowerCase() +
+      topMatchNode.data.response.slice(1)
+    }`;
   } else {
-    topMatchName.textContent = "None";
+    topMatchName.textContent = "";
+    topMatchResponse.textContent = "";
   }
 
   // Show the panel
@@ -209,7 +215,7 @@ function cycleThroughNodes() {
     if (randomNode) {
       showNodeDetails(randomNode);
     }
-  }, 5000);
+  }, 10000);
 }
 
 cycleThroughNodes();

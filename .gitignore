@@ -14,4 +14,7 @@ chromadb
 
 # Ignore formatted
 graphData.json
+summarizedGraphData.json
 .vercel
+
+.env
