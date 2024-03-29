@@ -27,11 +27,15 @@
         id="nodeConnections"
         class="font-tiempos-headline text-stone-500 font-light italic"
       ></p>
-      <p
-        id="nodeDescription"
-        class="font-tiempos-headline text-stone-500 text-sm"
-      ></p>
-      <div id="topMatch" class="flex flex-col gap-2 mb-2"></div>
+      <p id="nodeDescription" class="font-mono text-stone-500 text-sm"></p>
+      <div
+        id="nodeMatch"
+        class="mt-2 font-tiempos-headline flex flex-row justify-end items-center gap-2"
+      >
+        <div class="font-light text-stone-500">Top Match:</div>
+        <div id="topMatchName" class=""></div>
+      </div>
+      <div id="topMatchResponse" class="font-light text-xs font-mono"></div>
     </div>
     <script src="bundle.js"></script>
   </body>

@@ -73,8 +73,24 @@ function showNodeDetails(node) {
   document.getElementById("nodeMajor").textContent = node.data.major || "";
   document.getElementById(
     "nodeConnections"
-  ).textContent = `Potential connections: ${graph.getLinks(node.id).length}`;
+  ).textContent = `Potential connections: ${
+    graph.getLinks(node.id)?.length || 0
+  }`;
   document.getElementById("nodeDescription").textContent = node.data.response;
+
+  const topMatch = node.data.topMatch;
+  const topMatchNode = graph.getNode(topMatch);
+
+  const topMatchName = document.getElementById("topMatchName");
+  const topMatchResponse = document.getElementById("topMatchResponse");
+
+  if (topMatch) {
+    topMatchName.textContent = topMatchNode.data.name;
+    topMatchResponse.textContent = topMatchNode.data.response;
+  } else {
+    topMatchName.textContent = "None";
+    topMatchResponse.textContent = "";
+  }
 
   // Show the panel
   document.getElementById("nodePanel").classList.remove("hidden");
