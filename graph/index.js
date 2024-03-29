@@ -48,10 +48,10 @@ simulator.dragCoeff(DRAG_COEFF);
 simulator.timeStep(TIME_STEP);
 renderer.focus();
 
-var settingsView = createSettingsView(renderer);
-var gui = settingsView.gui();
+// var settingsView = createSettingsView(renderer);
+// var gui = settingsView.gui();
 
-var nodeSettings = addCurrentNodeSettings(gui, renderer);
+// var nodeSettings = addCurrentNodeSettings(gui, renderer);
 
 renderer.on("nodehover", showNodeDetails);
 renderer.on("nodeclick", resetNodeDetails);
@@ -129,6 +129,45 @@ function populateGraph() {
   return g;
 }
 
+function intersect(from, to, r) {
+  var dx = from.x - to.x;
+  var dy = from.y - to.y;
+  var dz = from.z - to.z;
+  var r1 = Math.sqrt(dx * dx + dy * dy + dz * dz);
+  var teta = Math.acos(dz / r1);
+  var phi = Math.atan2(dy, dx);
+
+  return {
+    x: r * Math.sin(teta) * Math.cos(phi) + to.x,
+    y: r * Math.sin(teta) * Math.sin(phi) + to.y,
+    z: r * Math.cos(teta) + to.z,
+  };
+}
+
+function flyTo(camera, to, radius) {
+  if (!to || to.x === undefined || to.y === undefined || to.z === undefined) {
+    console.error("Invalid target position:", to);
+    return;
+  }
+
+  var from = {
+    x: camera.position.x,
+    y: camera.position.y,
+    z: camera.position.z,
+  };
+
+  var cameraOffset = radius / Math.tan((Math.PI / 180.0) * camera.fov * 0.5);
+  var cameraEndPos = intersect(from, to, cameraOffset);
+
+  if (!cameraEndPos) {
+    console.error("Failed to calculate camera end position.");
+    return;
+  }
+
+  camera.position.set(to.x, to.y, to.z);
+  // camera.lookAt(new THREE.Vector3(to.x, to.y, to.z));
+}
+
 function showNodePanel(node) {
   if (document.getElementById("nodePanel")) {
     document.getElementById("nodePanel").remove();
@@ -141,9 +180,8 @@ function showNodePanel(node) {
   panel.style.padding = "10px";
   panel.style.marginLeft = "20px";
   panel.style.width = "300px";
-  panel.style.fontFamily = "Geist, sans-serif";
+  panel.style.fontFamily = "'Tiempos Headline', sans-serif";
   panel.style.maxHeight = "65%";
-  // panel.style.overflowY = "auto";
   panel.id = "nodePanel";
   panel.innerHTML = "<h1>" + node.data.name + "</h1>";
   if (node.data.major) {
@@ -182,10 +220,28 @@ function showInitialNodePanel() {
   panel.style.padding = "10px";
   panel.style.marginLeft = "20px";
   panel.style.width = "300px";
-  panel.style.fontFamily = "Geist, sans-serif";
+  panel.style.fontFamily = "'Tiempos Headline', sans-serif";
   panel.id = "nodePanel";
   panel.innerHTML = "<h2>Hover over a node to see more details</h2>";
   document.body.appendChild(panel);
 }
+
+function getRandomNodeId() {
+  console.log(json.nodes);
+  if (json.nodes.length === 0) return null;
+  const randomIndex = Math.floor(Math.random() * json.nodes.length);
+  return json.nodes[randomIndex];
+}
+
+function cycleThroughNodes() {
+  setInterval(() => {
+    const randomNode = getRandomNodeId();
+    if (randomNode) {
+      showNodeDetails(randomNode);
+    }
+  }, 5000);
+}
+
+cycleThroughNodes();
 
 showInitialNodePanel();

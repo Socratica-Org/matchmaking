@@ -1,3 +1,5 @@
+import { Graph } from "@/components/Graph";
+
 export default function Home() {
-  return <main>Root</main>;
+  return <Graph />;
 }
