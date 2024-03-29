@@ -1,12 +1,12 @@
 const graphConfig = {
   nodeColor: 0xe8c6a5, // (#C6492C)
-  nodeSize: 20,
-  nodeHoverColor: 0xffe213, // (#ffe213)
-  nodeConnectionColor: 0xaab172, // (#a9ba22)
+  nodeSize: 25,
+  nodeHoverColor: 0x121212, // (#ffe213)
+  nodeConnectionColor: 0x262626, // (#a9ba22)
   linkFromColor: 0x649aea, // (#a33f3f)
   linkToColor: 0xebf0ff, // (#35130b)
-  linkConnectionFromColor: 0xffffff, // (#ffffff)
-  linkConnectionToColor: 0xffe213, // (#ffe213)
+  linkConnectionFromColor: 0x121212, // (#ffffff)
+  linkConnectionToColor: 0x121212, // (#ffe213)
   springLength: 110,
   springCoeff: 0.0001,
   gravity: -2,
@@ -61,11 +61,25 @@ renderer.on("nodehover", showNodeDetails);
 renderer.on("nodeclick", resetNodeDetails);
 
 function showNodeDetails(node) {
-  if (!node) return;
+  if (!node) {
+    return;
+  }
 
-  // nodeSettings.setUI(node);
+  // Reset node and link colors
   resetNodeDetails();
 
+  // Update node details
+  document.getElementById("nodeName").textContent = node.data.name;
+  document.getElementById("nodeMajor").textContent = node.data.major || "";
+  document.getElementById(
+    "nodeConnections"
+  ).textContent = `Potential connections: ${graph.getLinks(node.id).length}`;
+  // document.getElementById("topMatch").textContent = topMatch;
+
+  // Show the panel
+  document.getElementById("nodePanel").classList.remove("hidden");
+
+  // Update node and link colors as before...
   var nodeUI = renderer.getNode(node.id);
   nodeUI.color = graphConfig.nodeHoverColor;
 
@@ -80,10 +94,13 @@ function showNodeDetails(node) {
       linkUI.toColor = graphConfig.linkConnectionToColor;
     });
   }
-  showNodePanel(node);
 }
 
 function resetNodeDetails() {
+  // Hide the node panel
+  document.getElementById("nodePanel").classList.add("hidden");
+
+  // Reset node and link colors as before...
   graph.forEachNode(function (node) {
     var nodeUI = renderer.getNode(node.id);
     nodeUI.color = graphConfig.nodeColor;
@@ -93,10 +110,6 @@ function resetNodeDetails() {
     linkUI.fromColor = graphConfig.linkFromColor;
     linkUI.toColor = graphConfig.linkToColor;
   });
-
-  if (document.getElementById("nodePanel")) {
-    document.getElementById("nodePanel").remove();
-  }
 }
 
 function getGraphFromQueryString(query) {
@@ -168,54 +181,6 @@ function flyTo(camera, to, radius) {
 
   camera.position.set(to.x, to.y, to.z);
   // camera.lookAt(new THREE.Vector3(to.x, to.y, to.z));
-}
-
-function showNodePanel(node) {
-  if (document.getElementById("nodePanel")) {
-    document.getElementById("nodePanel").remove();
-  }
-  var panel = document.createElement("div");
-  panel.className =
-    "font-tiempos-headline absolute top-0 right-0 text-right text-red-500 p-2 mr-5 w-72 max-h-[65%] overflow-auto"; // Updated with Tailwind classes
-  panel.id = "nodePanel";
-  panel.innerHTML = `<h1 class="text-xl font-bold">${node.data.name}</h1>`; // Tailwind classes for h1
-  if (node.data.major) {
-    panel.innerHTML += `<h3 class="text-lg">${node.data.major}</h3>`; // Tailwind classes for h3
-  }
-
-  if (graph.getLinks(node.id)) {
-    panel.innerHTML += `<p class="text-base">Potential connections: ${
-      graph.getLinks(node.id).length
-    }</p>`;
-    panel.innerHTML += `<h3 class="text-lg font-semibold">Top match:</h3>`; // Tailwind classes for h3
-    var topMatch = document.createElement("div");
-    topMatch.className = "flex flex-col gap-2 mb-2"; // Updated with Tailwind classes
-    var link = graph.getLinks(node.id)[0];
-    var toNode = link.toId === node.id ? link.fromId : link.toId;
-    var toNodeData = graph.getNode(toNode).data;
-    topMatch.innerHTML = `<strong class="font-bold">${toNodeData.name}</strong>`; // Tailwind classes for strong
-    topMatch.addEventListener("click", function () {
-      showNodeDetails(graph.getNode(toNode));
-    });
-    panel.appendChild(topMatch);
-  }
-
-  document.body.appendChild(panel);
-}
-
-function showInitialNodePanel() {
-  var panel = document.createElement("div");
-  panel.style.position = "absolute";
-  panel.style.top = "0";
-  panel.style.right = "0";
-  panel.style.color = "white";
-  panel.style.padding = "10px";
-  panel.style.marginRight = "20px";
-  panel.style.width = "300px";
-  panel.style.fontFamily = "'Tiempos Headline', sans-serif";
-  panel.id = "nodePanel";
-  panel.innerHTML = "<h2>Hover over a node to see more details</h2>";
-  document.body.appendChild(panel);
 }
 
 function getRandomNodeId() {
