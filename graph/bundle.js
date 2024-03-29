@@ -1,19 +1,19 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-const NODE_COLOR = 0xc6492c; // (#C6492C)
-const NODE_SIZE = 25;
+const NODE_COLOR = 0xe8c6a5; // (#C6492C)
+const NODE_SIZE = 20;
 const NODE_HOVER_COLOR = 0xffe213; // (#ffe213)
 const NODE_CONNECTION_COLOR = 0xaab172; // (#a9ba22)
-const LINK_FROM_COLOR = 0x732196; // (#a33f3f)
-const LINK_TO_COLOR = 0xc6492c; // (#35130b)
+const LINK_FROM_COLOR = 0x649aea; // (#a33f3f)
+const LINK_TO_COLOR = 0xebf0ff; // (#35130b)
 const LINK_CONNECTION_FROM_COLOR = 0xffffff; // (#ffffff)
 const LINK_CONNECTION_TO_COLOR = 0xffe213; // (#ffe213)
 const SPRING_LENGTH = 110;
-const SPRING_COEFF = 0.000001;
+const SPRING_COEFF = 0.0001;
 const GRAVITY = -2;
-const THETA = 0.1;
+const THETA = 0.2;
 const DRAG_COEFF = 0.3;
-const TIME_STEP = 1;
-const BACKGROUND_COLOR = 0x121212; // (Socratica Black)
+const TIME_STEP = 3;
+const BACKGROUND_COLOR = 0xfbf8ef; // (Socratica Black)
 
 var createSettingsView = require("config.pixel");
 var query = require("query-string").parse(window.location.search.substring(1));

@@ -2095,6 +2095,11 @@ video {
   color: rgb(251 248 239 / var(--tw-text-opacity));
 }
 
+.text-socratica-black {
+  --tw-text-opacity: 1;
+  color: rgb(18 18 18 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
