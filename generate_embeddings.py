@@ -59,7 +59,7 @@ def generate_embeddings():
                 "program": program or "N/A",
             })
 
-        print(f"{index}: Processed {name}")
+        print(f"{index}: Processed {name} ({program})")
 
     print("Performing batch upserts...")
 

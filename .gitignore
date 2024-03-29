@@ -13,3 +13,4 @@ chromadb
 
 # Ignore formatted
 graphData.json
+.vercel

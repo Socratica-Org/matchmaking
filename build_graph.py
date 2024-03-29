@@ -4,8 +4,10 @@ from pydantic import BaseModel
 
 import chromadb
 
+EMBEDDING_COLLECTION = "problem_prompt_embeddings"
+
 chroma_client = chromadb.PersistentClient(path="chromadb")
-collection = chroma_client.get_collection(name="problem_prompt_embeddings")
+collection = chroma_client.get_collection(name=EMBEDDING_COLLECTION)
 
 print(collection)
 
@@ -63,7 +65,8 @@ for i, embedding in enumerate(results["embeddings"]):
     name = str(results["metadatas"][i]["name"])
     source_id = results["ids"][i]
 
-    print(f"Processing {name}")
+    print(
+        f"{i+1}/{len(results['embeddings'])}: Processing {name} ({self_major})")
 
     new_node = Node(
         id=source_id,
@@ -88,7 +91,7 @@ for i, embedding in enumerate(results["embeddings"]):
 # print(nodes)
 # print(links)
 
-print("All Processed.")
+print(f"Graph constructed from collection: {EMBEDDING_COLLECTION}")
 
 with open("graphData.json", "w") as f:
     json.dump({"nodes": [n.model_dump() for n in nodes],
