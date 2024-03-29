@@ -175,36 +175,25 @@ function showNodePanel(node) {
     document.getElementById("nodePanel").remove();
   }
   var panel = document.createElement("div");
-  panel.className = "font-tiempos-headline"; // TODO: Doesn't have tailwind highlighting
-  panel.style.position = "absolute";
-  panel.style.top = "0";
-  panel.style.right = "0";
-  panel.style.textAlign = "right";
-  panel.style.color = "white";
-  panel.style.padding = "10px";
-  panel.style.marginRight = "20px";
-  panel.style.width = "300px";
-  panel.style.maxHeight = "65%";
+  panel.className =
+    "font-tiempos-headline absolute top-0 right-0 text-right text-red-500 p-2 mr-5 w-72 max-h-[65%] overflow-auto"; // Updated with Tailwind classes
   panel.id = "nodePanel";
-  panel.innerHTML = "<h1>" + node.data.name + "</h1>";
+  panel.innerHTML = `<h1 class="text-xl font-bold">${node.data.name}</h1>`; // Tailwind classes for h1
   if (node.data.major) {
-    panel.innerHTML += "<h3>Major: " + node.data.major + "</h3>";
+    panel.innerHTML += `<h3 class="text-lg">${node.data.major}</h3>`; // Tailwind classes for h3
   }
 
   if (graph.getLinks(node.id)) {
-    panel.innerHTML += `<p>Potential connections: ${
+    panel.innerHTML += `<p class="text-base">Potential connections: ${
       graph.getLinks(node.id).length
     }</p>`;
-    panel.innerHTML += `<h3>Top match:</h3>`;
+    panel.innerHTML += `<h3 class="text-lg font-semibold">Top match:</h3>`; // Tailwind classes for h3
     var topMatch = document.createElement("div");
-    topMatch.style.display = "flex";
-    topMatch.style.flexDirection = "column";
-    topMatch.style.gap = "5px";
-    topMatch.style.marginBottom = "10px";
+    topMatch.className = "flex flex-col gap-2 mb-2"; // Updated with Tailwind classes
     var link = graph.getLinks(node.id)[0];
     var toNode = link.toId === node.id ? link.fromId : link.toId;
     var toNodeData = graph.getNode(toNode).data;
-    topMatch.innerHTML = `<strong>${toNodeData.name}</strong>`;
+    topMatch.innerHTML = `<strong class="font-bold">${toNodeData.name}</strong>`; // Tailwind classes for strong
     topMatch.addEventListener("click", function () {
       showNodeDetails(graph.getNode(toNode));
     });

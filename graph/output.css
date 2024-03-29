@@ -679,6 +679,14 @@ video {
   inset: -0.25rem;
 }
 
+.right-0 {
+  right: 0px;
+}
+
+.top-0 {
+  top: 0px;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -733,6 +741,14 @@ video {
 
 .mt-2 {
   margin-top: 0.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mr-5 {
+  margin-right: 1.25rem;
 }
 
 .box-border {
@@ -834,6 +850,10 @@ video {
   display: none;
 }
 
+.max-h-\[65\%\] {
+  max-height: 65%;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -848,6 +868,10 @@ video {
 
 .w-\[weird-and-invalid\] {
   width: weird-and-invalid;
+}
+
+.w-72 {
+  width: 18rem;
 }
 
 .flex-shrink {
@@ -1368,6 +1392,10 @@ video {
   justify-items: stretch;
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
@@ -1813,6 +1841,21 @@ video {
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
 }
 
+.bg-stone-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(68 64 60 / var(--tw-bg-opacity));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-socratica-cream {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 248 239 / var(--tw-bg-opacity));
+}
+
 .decoration-slice {
   -webkit-box-decoration-break: slice;
           box-decoration-break: slice;
@@ -1923,12 +1966,12 @@ video {
      object-fit: scale-down;
 }
 
-.p-4 {
-  padding: 1rem;
-}
-
 .p-6 {
   padding: 1.5rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
 }
 
 .text-left {
@@ -1991,26 +2034,36 @@ video {
   font-family: 'Tiempos Headline', serif;
 }
 
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {
   font-weight: 700;
 }
 
-.font-light {
-  font-weight: 300;
-}
-
 .font-normal {
   font-weight: 400;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .uppercase {
@@ -2090,14 +2143,19 @@ video {
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }
 
-.text-socratica-cream {
-  --tw-text-opacity: 1;
-  color: rgb(251 248 239 / var(--tw-text-opacity));
-}
-
 .text-socratica-black {
   --tw-text-opacity: 1;
   color: rgb(18 18 18 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .underline {
