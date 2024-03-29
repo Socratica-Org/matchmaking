@@ -6,6 +6,8 @@ import pandas as pd
 import chromadb
 from utils import chunk_array
 
+COLUMN_INDEX = 23
+
 
 def generate_embeddings():
     chroma_client = chromadb.PersistentClient(path="chromadb")
@@ -29,6 +31,18 @@ def generate_embeddings():
     problem_ids = []
     problem_metadatas = []
 
+    column_name_to_process = df.iloc[:, COLUMN_INDEX].name
+
+    # Ask for input and accept enter or y as confirmation, else end
+    inp = input(
+        f"Are you sure you want to process column {COLUMN_INDEX}:\n\n \"{column_name_to_process}\"?\n\n(y/n): ")
+
+    if inp.lower() not in ["", "y"]:
+        print("Ending process...")
+        return
+
+    print("Processing column...")
+
     # Iterate over DataFrame to accumulate batch data
     for index, row in df.iterrows():
         api_id = row['api_id']
@@ -36,12 +50,12 @@ def generate_embeddings():
         email = row['email']
         program: Optional[str] = row.iloc[21]
 
-        time_prompt: Optional[str] = row.iloc[23]
-        problem_prompt: Optional[str] = row.iloc[24]
+        prompt_response: Optional[str] = row.iloc[COLUMN_INDEX]
+        # problem_prompt: Optional[str] = None
 
         # Accumulate time_prompt data
-        if time_prompt:
-            time_prompts.append(time_prompt)
+        if prompt_response:
+            time_prompts.append(prompt_response)
             time_ids.append(api_id)
             time_metadatas.append({
                 "name": name,
@@ -50,14 +64,14 @@ def generate_embeddings():
             })
 
         # Accumulate problem_prompt data
-        if problem_prompt:
-            problem_prompts.append(problem_prompt)
-            problem_ids.append(api_id)
-            problem_metadatas.append({
-                "name": name,
-                "email": email,
-                "program": program or "N/A",
-            })
+        # if problem_prompt:
+        #     problem_prompts.append(problem_prompt)
+        #     problem_ids.append(api_id)
+        #     problem_metadatas.append({
+        #         "name": name,
+        #         "email": email,
+        #         "program": program or "N/A",
+        #     })
 
         print(f"{index}: Processed {name} ({program})")
 

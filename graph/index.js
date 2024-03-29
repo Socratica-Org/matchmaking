@@ -7,9 +7,9 @@ const graphConfig = {
   linkToColor: 0xebf0ff, // (#35130b)
   linkConnectionFromColor: 0x121212, // (#ffffff)
   linkConnectionToColor: 0x121212, // (#ffe213)
-  springLength: 110,
+  springLength: 200,
   springCoeff: 0.0001,
-  gravity: -2,
+  gravity: -10,
   theta: 0.2,
   dragCoeff: 0.3,
   timeStep: 3,
@@ -74,7 +74,7 @@ function showNodeDetails(node) {
   document.getElementById(
     "nodeConnections"
   ).textContent = `Potential connections: ${graph.getLinks(node.id).length}`;
-  // document.getElementById("topMatch").textContent = topMatch;
+  document.getElementById("nodeDescription").textContent = node.data.response;
 
   // Show the panel
   document.getElementById("nodePanel").classList.remove("hidden");

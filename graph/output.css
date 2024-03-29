@@ -2043,6 +2043,11 @@ video {
   line-height: 1.75rem;
 }
 
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -2171,6 +2176,16 @@ video {
 .text-stone-700 {
   --tw-text-opacity: 1;
   color: rgb(68 64 60 / var(--tw-text-opacity));
+}
+
+.text-stone-200 {
+  --tw-text-opacity: 1;
+  color: rgb(231 229 228 / var(--tw-text-opacity));
+}
+
+.text-stone-300 {
+  --tw-text-opacity: 1;
+  color: rgb(214 211 209 / var(--tw-text-opacity));
 }
 
 .underline {
