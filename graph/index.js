@@ -3,17 +3,17 @@ const graphConfig = {
   nodeSize: 25,
   nodeHoverColor: 0x121212, // (#ffe213)
   nodeConnectionColor: 0x262626, // (#a9ba22)
-  linkFromColor: 0x649aea, // (#a33f3f)
-  linkToColor: 0xebf0ff, // (#35130b)
+  linkFromColor: 0x732196, // (#a33f3f)
+  linkToColor: 0x82a8f5, // (#35130b)
   linkConnectionFromColor: 0x121212, // (#ffffff)
   linkConnectionToColor: 0x121212, // (#ffe213)
   springLength: 200,
   springCoeff: 0.0001,
-  gravity: -10,
+  gravity: -2,
   theta: 0.2,
   dragCoeff: 0.3,
   timeStep: 3,
-  backgroundColor: 0xfbf8ef, // (Socratica Black)
+  backgroundColor: 0x0, // (Socratica Black)
 };
 
 var createSettingsView = require("config.pixel");
@@ -69,27 +69,23 @@ function showNodeDetails(node) {
   resetNodeDetails();
 
   // Update node details
-  document.getElementById("nodeName").textContent = node.data.name;
+  document.getElementById("nodeName").textContent =
+    node.data.name.toUpperCase();
   document.getElementById("nodeMajor").textContent = node.data.major || "";
-  document.getElementById(
-    "nodeConnections"
-  ).textContent = `Potential connections: ${
+  document.getElementById("nodeConnections").textContent = `${
     graph.getLinks(node.id)?.length || 0
-  }`;
+  } Potential Connections`;
   document.getElementById("nodeDescription").textContent = node.data.response;
 
   const topMatch = node.data.topMatch;
   const topMatchNode = graph.getNode(topMatch);
 
   const topMatchName = document.getElementById("topMatchName");
-  const topMatchResponse = document.getElementById("topMatchResponse");
 
   if (topMatch) {
-    topMatchName.textContent = topMatchNode.data.name;
-    topMatchResponse.textContent = topMatchNode.data.response;
+    topMatchName.textContent = topMatchNode.data.name.toUpperCase();
   } else {
     topMatchName.textContent = "None";
-    topMatchResponse.textContent = "";
   }
 
   // Show the panel

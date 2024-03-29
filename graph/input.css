@@ -82,3 +82,63 @@
   src: url("fonts/Tiempos Headline/TiemposHeadline-BoldItalic.otf")
     format("opentype");
 }
+
+// SpaceMono
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/Space_Mono/SpaceMono-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/Space_Mono/SpaceMono-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: italic;
+  font-weight: 400;
+  src: url("fonts/Space_Mono/SpaceMono-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: italic;
+  font-weight: 700;
+  src: url("fonts/Space_Mono/SpaceMono-BoldItalic.ttf") format("truetype");
+}
+
+// Untitled Sans
+
+@font-face {
+  font-family: "Untitled Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: url("fonts/Untitled Sans/UntitledSans-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Untitled Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/Untitled Sans/UntitledSans-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Untitled Sans";
+  font-style: normal;
+  font-weight: 500;
+  src: url("fonts/Untitled Sans/UntitledSans-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Untitled Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: url("fonts/Untitled Sans/UntitledSans-Bold.otf") format("opentype");
+}

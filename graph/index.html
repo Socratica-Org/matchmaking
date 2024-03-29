@@ -5,38 +5,44 @@
     <link rel="i/con" href="favicon.ico" type="image/x-icon" />
     <link href="./output.css" rel="stylesheet" />
   </head>
-  <body class="min-h-screen text-socratica-black">
-    <div class="absolute p-6">
+  <body class="min-h-screen text-socratica-cream">
+    <!-- <div class="absolute p-6">
       <div class="font-tiempos-headline font-normal text-2xl">
         Socratica Symposium
       </div>
       <div class="font-tiempos-headline text-stone-400 font-light">
         Waterloo, ON
       </div>
-    </div>
+    </div> -->
     <div
       id="nodePanel"
-      class="hidden absolute top-0 right-0 text-right text-socratica-black pt-6 pr-10 w-96 max-h-[65%] overflow-auto"
+      class="hidden absolute top-0 left-0 p-6 text-socratica-cream overflow-ellipsis max-w-lg"
     >
-      <h1 id="nodeName" class="text-xl font-tiempos-headline font-normal"></h1>
+      <h1 id="nodeName" class="text-6xl font-space-mono tracking-tight"></h1>
       <h3
         id="nodeMajor"
-        class="font-tiempos-headline font-light text-stone-700 tracking-tight"
+        class="font-light text-stone-300 tracking-normal font-tiempos-headline text-xl"
       ></h3>
-      <p
-        id="nodeConnections"
-        class="font-tiempos-headline text-stone-500 font-light italic"
-      ></p>
-      <p id="nodeDescription" class="font-mono text-stone-500 text-sm"></p>
-      <div
-        id="nodeMatch"
-        class="mt-2 font-tiempos-headline flex flex-row justify-end items-center gap-2"
-      >
-        <div class="font-light text-stone-500">Top Match:</div>
-        <div id="topMatchName" class=""></div>
+      <div class="font-untitled-sans font-light text-stone-200 text-xl">
+        With no obligations, would:
+        <span id="nodeDescription" class=""></span>
       </div>
-      <div id="topMatchResponse" class="font-light text-xs font-mono"></div>
     </div>
+    <div class="absolute bottom-0 right-0 p-6 font-untitled-sans">
+      <div class="font-normal text-socratica-grey text-lg">
+        They should meet
+      </div>
+      <div
+        id="topMatchName"
+        class="text-3xl font-normal tracking-tighter"
+      ></div>
+
+      <!-- <div id="topMatchResponse" class="font-light text-xs font-mono"></div> -->
+    </div>
+    <p
+      id="nodeConnections"
+      class="absolute p-6 bottom-0 text-stone-600 font-untitled-sans"
+    ></p>
     <script src="bundle.js"></script>
   </body>
 </html>
