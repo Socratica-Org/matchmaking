@@ -3,6 +3,7 @@ __pycache__/
 
 graph/bundle.js
 **/bundle.js
+**/output.css
 
 
 # Ignore the data

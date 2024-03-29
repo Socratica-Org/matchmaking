@@ -7,7 +7,7 @@
     "watchify": "^4.0.0"
   },
   "scripts": {
-    "build": "browserify index.js -o bundle.js",
+    "build": "npx tailwindcss -i ./input.css -o ./output.css && browserify index.js -o bundle.js",
     "start": "browserify index.js -o bundle.js",
     "dev": "watchify index.js -o bundle.js",
     "tailwind": "npx tailwindcss -i ./input.css -o ./output.css --watch"
