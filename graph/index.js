@@ -1,9 +1,9 @@
 const NODE_COLOR = 0xc6492c; // (#C6492C)
-const NODE_SIZE = 15;
+const NODE_SIZE = 25;
 const NODE_HOVER_COLOR = 0xffe213; // (#ffe213)
-const NODE_CONNECTION_COLOR = 0xaab172; // (#AAB172)
-const LINK_FROM_COLOR = 0x732196; // (#732196)
-const LINK_TO_COLOR = 0xc6492c; // (#C6492C)
+const NODE_CONNECTION_COLOR = 0xaab172; // (#a9ba22)
+const LINK_FROM_COLOR = 0x732196; // (#a33f3f)
+const LINK_TO_COLOR = 0xc6492c; // (#35130b)
 const LINK_CONNECTION_FROM_COLOR = 0xffffff; // (#ffffff)
 const LINK_CONNECTION_TO_COLOR = 0xffe213; // (#ffe213)
 const SPRING_LENGTH = 110;
@@ -93,8 +93,6 @@ function resetNodeDetails() {
   if (document.getElementById("nodePanel")) {
     document.getElementById("nodePanel").remove();
   }
-
-  showInitialNodePanel();
 }
 
 function getGraphFromQueryString(query) {
@@ -175,10 +173,11 @@ function showNodePanel(node) {
   var panel = document.createElement("div");
   panel.style.position = "absolute";
   panel.style.top = "0";
-  panel.style.left = "0";
+  panel.style.right = "0";
+  panel.style.textAlign = "right";
   panel.style.color = "white";
   panel.style.padding = "10px";
-  panel.style.marginLeft = "20px";
+  panel.style.marginRight = "20px";
   panel.style.width = "300px";
   panel.style.fontFamily = "'Tiempos Headline', sans-serif";
   panel.style.maxHeight = "65%";
@@ -215,6 +214,21 @@ function showInitialNodePanel() {
   var panel = document.createElement("div");
   panel.style.position = "absolute";
   panel.style.top = "0";
+  panel.style.right = "0";
+  panel.style.color = "white";
+  panel.style.padding = "10px";
+  panel.style.marginRight = "20px";
+  panel.style.width = "300px";
+  panel.style.fontFamily = "'Tiempos Headline', sans-serif";
+  panel.id = "nodePanel";
+  panel.innerHTML = "<h2>Hover over a node to see more details</h2>";
+  document.body.appendChild(panel);
+}
+
+function showBranding() {
+  var panel = document.createElement("div");
+  panel.style.position = "absolute";
+  panel.style.top = "0";
   panel.style.left = "0";
   panel.style.color = "white";
   panel.style.padding = "10px";
@@ -222,7 +236,7 @@ function showInitialNodePanel() {
   panel.style.width = "300px";
   panel.style.fontFamily = "'Tiempos Headline', sans-serif";
   panel.id = "nodePanel";
-  panel.innerHTML = "<h2>Hover over a node to see more details</h2>";
+  panel.innerHTML = "<h1>Socratica Symposium</h1>";
   document.body.appendChild(panel);
 }
 
@@ -243,5 +257,4 @@ function cycleThroughNodes() {
 }
 
 cycleThroughNodes();
-
-showInitialNodePanel();
+showBranding();
