@@ -1,4 +1,4 @@
-const settings = {
+const graphConfig = {
   nodeColor: 0xe8c6a5, // (#C6492C)
   nodeSize: 20,
   nodeHoverColor: 0xffe213, // (#ffe213)
@@ -31,26 +31,26 @@ var renderer = renderGraph(graph, {
   // See API: https://github.com/anvaka/ngraph.pixel/blob/master/index.js#L25
   node: () => {
     return {
-      color: settings.nodeColor,
-      size: settings.nodeSize,
+      color: graphConfig.nodeColor,
+      size: graphConfig.nodeSize,
     };
   },
   link: () => {
     return {
-      fromColor: settings.linkFromColor,
-      toColor: settings.linkToColor,
+      fromColor: graphConfig.linkFromColor,
+      toColor: graphConfig.linkToColor,
     };
   },
-  clearColor: settings.backgroundColor, // (#121212)
+  clearColor: graphConfig.backgroundColor, // (#121212)
 });
 
 var simulator = renderer.layout().simulator;
-simulator.springLength(settings.springLength);
-simulator.springCoeff(settings.springCoeff);
-simulator.gravity(settings.gravity);
-simulator.theta(settings.theta);
-simulator.dragCoeff(settings.dragCoeff);
-simulator.timeStep(settings.timeStep);
+simulator.springLength(graphConfig.springLength);
+simulator.springCoeff(graphConfig.springCoeff);
+simulator.gravity(graphConfig.gravity);
+simulator.theta(graphConfig.theta);
+simulator.dragCoeff(graphConfig.dragCoeff);
+simulator.timeStep(graphConfig.timeStep);
 renderer.focus();
 // var settingsView = createSettingsView(renderer);
 // var gui = settingsView.gui();
@@ -67,17 +67,17 @@ function showNodeDetails(node) {
   resetNodeDetails();
 
   var nodeUI = renderer.getNode(node.id);
-  nodeUI.color = NODE_HOVER_COLOR;
+  nodeUI.color = graphConfig.nodeHoverColor;
 
   if (graph.getLinks(node.id)) {
     graph.getLinks(node.id).forEach(function (link) {
       var toNode = link.toId === node.id ? link.fromId : link.toId;
       var toNodeUI = renderer.getNode(toNode);
-      toNodeUI.color = NODE_CONNECTION_COLOR;
+      toNodeUI.color = graphConfig.nodeConnectionColor;
 
       var linkUI = renderer.getLink(link.id);
-      linkUI.fromColor = LINK_CONNECTION_FROM_COLOR;
-      linkUI.toColor = LINK_CONNECTION_TO_COLOR;
+      linkUI.fromColor = graphConfig.linkConnectionFromColor;
+      linkUI.toColor = graphConfig.linkConnectionToColor;
     });
   }
   showNodePanel(node);
@@ -86,12 +86,12 @@ function showNodeDetails(node) {
 function resetNodeDetails() {
   graph.forEachNode(function (node) {
     var nodeUI = renderer.getNode(node.id);
-    nodeUI.color = NODE_COLOR;
+    nodeUI.color = graphConfig.nodeColor;
   });
   graph.forEachLink(function (link) {
     var linkUI = renderer.getLink(link.id);
-    linkUI.fromColor = LINK_FROM_COLOR;
-    linkUI.toColor = LINK_TO_COLOR;
+    linkUI.fromColor = graphConfig.linkFromColor;
+    linkUI.toColor = graphConfig.linkToColor;
   });
 
   if (document.getElementById("nodePanel")) {
