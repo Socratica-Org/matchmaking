@@ -226,18 +226,18 @@ function showInitialNodePanel() {
 }
 
 function showBranding() {
-  var panel = document.createElement("div");
-  panel.style.position = "absolute";
-  panel.style.top = "0";
-  panel.style.left = "0";
-  panel.style.color = "white";
-  panel.style.padding = "10px";
-  panel.style.marginLeft = "20px";
-  panel.style.width = "300px";
-  panel.style.fontFamily = "'Tiempos Headline', sans-serif";
-  panel.id = "nodePanel";
-  panel.innerHTML = "<h1>Socratica Symposium</h1>";
-  document.body.appendChild(panel);
+  var branding = document.createElement("div");
+  branding.style.position = "absolute";
+  branding.style.top = "0";
+  branding.style.left = "0";
+  branding.style.color = "white";
+  branding.style.padding = "10px";
+  branding.style.marginLeft = "20px";
+  branding.style.width = "300px";
+  branding.style.fontFamily = "'Tiempos Headline', sans-serif";
+  branding.id = "branding";
+  branding.innerHTML = "<h1>Socratica Symposium</h1>";
+  document.body.appendChild(branding);
 }
 
 function getRandomNodeId() {
@@ -256,5 +256,5 @@ function cycleThroughNodes() {
   }, 5000);
 }
 
-cycleThroughNodes();
 showBranding();
+cycleThroughNodes();
