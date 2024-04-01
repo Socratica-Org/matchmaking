@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input";
+import { Search } from "@/components/Search";
 
 export default function Home() {
   return (
@@ -7,7 +7,7 @@ export default function Home() {
         Socratica W24 Symposium Search
       </div>
       <div className="text-lg text-stone-600">Waterloo, ON, Canada</div>
-      <Input className="mt-4" placeholder="Search for a person" />
+      <Search />
     </div>
   );
 }
