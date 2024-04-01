@@ -25,6 +25,8 @@ var addCurrentNodeSettings = require("./nodeSettings.js");
 var THREE = require("three");
 var createLayout = require("pixel.layout");
 
+let activateCycle = true;
+
 const layout = createLayout(graph);
 
 var renderer = renderGraph(graph, {
@@ -212,10 +214,128 @@ function getRandomNodeId() {
 function cycleThroughNodes() {
   setInterval(() => {
     const randomNode = getRandomNodeId();
-    if (randomNode) {
+    if (randomNode && activateCycle) {
       showNodeDetails(randomNode);
     }
   }, 10000);
 }
+
+function showSearchBar() {
+  if (document.getElementById("searchBarContainer")) {
+    document.getElementById("searchBarContainer").remove();
+  }
+
+  var nodes = json.nodes;
+
+  var searchBarContainer = document.createElement("div");
+  searchBarContainer.id = "searchBarContainer";
+  searchBarContainer.style.position = "absolute";
+  searchBarContainer.style.top = "20px";
+  searchBarContainer.style.right = "20px";
+  searchBarContainer.style.background = "rgba(255, 255, 255, 0.2)";
+  searchBarContainer.style.borderRadius = "12px";
+  searchBarContainer.style.border = "1px solid rgba(255, 255, 255, 0.18)";
+  searchBarContainer.style.backdropFilter = "blur(5px)";
+  searchBarContainer.style.padding = "20px";
+  searchBarContainer.style.width = "300px";
+  searchBarContainer.style.boxSizing = "border-box";
+  searchBarContainer.style.fontFamily = "'Geist', sans-serif";
+  searchBarContainer.style.display = "flex";
+  searchBarContainer.style.flexDirection = "column";
+  searchBarContainer.style.gap = "10px";
+
+  var input = document.createElement("input");
+  input.style.padding = "10px";
+  input.style.borderRadius = "8px";
+  input.style.border = "none";
+  input.style.background = "rgba(0, 0, 0, 0.4)";
+  input.style.borderRadius = "12px";
+  input.style.border = "1px solid rgba(255, 255, 255, 0.18)";
+  input.style.backdropFilter = "blur(5px)";
+  input.style.fontFamily = "'Geist', sans-serif";
+  input.style.outlineColor = "rgba(255, 255, 255, 0.1)";
+  input.style.color = "white";
+
+  var button = document.createElement("button");
+  button.style.fontFamily = "'Geist', sans-serif";
+  button.textContent = "Search";
+  button.style.color = "white";
+  button.style.padding = "10px";
+  button.style.borderRadius = "8px";
+  button.style.border = "none";
+  button.style.cursor = "pointer";
+  button.style.background = "rgba(0, 0, 0, 0.4)";
+
+  input.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      button.click();
+    }
+  });
+
+  var resultsContainer = document.createElement("div");
+  resultsContainer.id = "resultsContainer";
+  resultsContainer.style.maxHeight = "150px";
+  resultsContainer.style.overflowY = "auto";
+  resultsContainer.style.marginTop = "10px";
+  resultsContainer.style.display = "flex";
+  resultsContainer.style.flexDirection = "column";
+  resultsContainer.style.gap = "5px";
+  resultsContainer.style.color = "white";
+
+  searchBarContainer.appendChild(input);
+  searchBarContainer.appendChild(button);
+  searchBarContainer.appendChild(resultsContainer);
+
+  document.body.appendChild(searchBarContainer);
+
+  button.addEventListener("click", function () {
+    resultsContainer.innerHTML = "";
+
+    var query = input.value;
+    var matchingIndexes = searchByNameOrSchool(nodes, query);
+
+    matchingIndexes.forEach((index) => {
+      var node = nodes.find((node) => node.id === index);
+      if (node) {
+        var result = document.createElement("div");
+        result.innerHTML = `<strong>${node.data.name}</strong><br>${
+          node.data.major != "N/A" ? node.data.major : ""
+        }<br>`;
+        resultsContainer.appendChild(result);
+        result.style.cursor = "pointer";
+
+        result.addEventListener("click", function () {
+          var nodePosition = layout.getNodePosition
+            ? layout.getNodePosition(node.id)
+            : { x: 0, y: 0, z: 0 };
+          activateCycle = false;
+          showNodeDetails(node);
+          console.log(renderer.camera());
+          console.log(nodePosition);
+        });
+      }
+    });
+
+    if (matchingIndexes.length === 0) {
+      resultsContainer.innerHTML = "<div>No results found</div>";
+    }
+  });
+}
+
+function searchByNameOrSchool(nodes, query) {
+  const resultIds = nodes
+    .filter((node) => {
+      const nameMatch = node.data.name
+        .toLowerCase()
+        .includes(query.toLowerCase());
+      return nameMatch;
+    })
+    .map((node) => node.id);
+
+  return resultIds;
+}
+
+showSearchBar();
 
 cycleThroughNodes();
