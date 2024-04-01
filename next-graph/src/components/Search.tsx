@@ -1,10 +1,18 @@
 "use client";
 
+import {
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import graphData from "@/graphData.json";
+import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
+import { ForceGraph2D } from "react-force-graph";
 import { Input } from "./ui/input";
 
-interface CustomNode {
+interface Node {
   id: string;
   data: {
     name: string;
@@ -13,6 +21,9 @@ interface CustomNode {
     topMatch: string;
     originalResponse: string;
   };
+}
+
+interface CustomNode extends Node {
   links: { source: string; target: string }[];
 }
 
@@ -37,7 +48,7 @@ graphData.links.forEach((link) => {
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState<CustomNode[]>([]);
+  const [searchResults, setSearchResults] = useState<Node[]>([]);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -53,20 +64,60 @@ export const Search = () => {
   return (
     <div className="font-untitled-sans">
       <Input
-        className="mt-4 font-tiempos-headline"
+        className="text-lg mt-4 font-tiempos-headline"
         placeholder="Search for a person"
         onChange={handleSearch}
       />
       <div className="mt-2 flex flex-col gap-4">
-        {searchResults.map((item) => (
-          <div key={item.id} className="bg-slate-50 rounded p-3">
-            <h2 className="font-medium text-lg font-tiempos-headline">
-              {item.data.name}
-            </h2>
-            <p className="">{item.data.major}</p>
-            <p className="text-sm text-stone-500">{item.data.response}</p>
-          </div>
-        ))}
+        {searchResults.map((item) => {
+          const currentNode = nodeMap.get(item.id);
+          const neighbors = currentNode?.links.map((link) => {
+            const neighborNode = nodeMap.get(
+              link.source === item.id ? link.target : link.source
+            );
+
+            return neighborNode;
+          });
+
+          const graph = {
+            nodes: [currentNode, ...(neighbors as CustomNode[])],
+            links: currentNode?.links,
+          };
+
+          console.log(graph);
+
+          return (
+            <Dialog key={item.id}>
+              <DialogTrigger key={item.id} className="bg-slate-50 rounded p-3">
+                <h2 className="font-medium text-lg font-tiempos-headline">
+                  {item.data.name}
+                </h2>
+                <p className="font-tiempos-headline font-light text-stone-700">
+                  {item.data.major}
+                </p>
+                <p className="text-sm text-stone-500">{item.data.response}</p>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px] min-h-[30rem]">
+                <DialogHeader>
+                  <DialogTitle>Your connections</DialogTitle>
+                  <DialogDescription>asdf</DialogDescription>
+                </DialogHeader>
+                <div className="w-full flex justify-center">
+                  <ForceGraph2D
+                    width={300}
+                    height={300}
+                    graphData={graph}
+                    backgroundColor="black"
+                  />
+                </div>
+
+                {/* <DialogFooter>
+              <button type="submit">Save changes</button>
+            </DialogFooter> */}
+              </DialogContent>
+            </Dialog>
+          );
+        })}
       </div>
     </div>
   );
