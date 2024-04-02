@@ -2,7 +2,6 @@
 
 import {
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -114,8 +113,8 @@ export const Search = () => {
               </DialogTrigger>
               <DialogContent className="w-full min-h-[30rem]">
                 <DialogHeader>
-                  <DialogTitle>Your connections</DialogTitle>
-                  <DialogDescription>asdf</DialogDescription>
+                  <DialogTitle>Potential Connections</DialogTitle>
+                  {/* <DialogDescription>asdf</DialogDescription> */}
                 </DialogHeader>
 
                 <div className="h-[60vh] overflow-y-scroll">
