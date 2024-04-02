@@ -342,6 +342,6 @@ function searchByNameOrSchool(nodes, query) {
   return resultIds;
 }
 
-showSearchBar();
+// showSearchBar();
 
 cycleThroughNodes();
