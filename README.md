@@ -18,6 +18,9 @@ Generate embeddings
 
 ```sh
 python generate_embeddings.py
+python build_graph.py # to create the graph based on the distance threshold
+python summarize_graph_data.py # to summarize responses
+python attendees.py # to cache
 ```
 
 Develop the graph:
