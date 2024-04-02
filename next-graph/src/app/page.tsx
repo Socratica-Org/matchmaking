@@ -7,7 +7,9 @@ export default function Home() {
         Socratica W24 Symposium Search
       </div>
       <div className="text-lg text-stone-600">Waterloo, ON, Canada</div>
-      <Search />
+      <div className="flex justify-center w-full">
+        <Search />
+      </div>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import graphData from "@/graphData.json";
+import graphData from "@/summarizedGraphData.json";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
 import { ForceGraph2D } from "react-force-graph";
@@ -62,7 +62,7 @@ export const Search = () => {
   }, [searchTerm]);
 
   return (
-    <div className="font-untitled-sans">
+    <div className="font-untitled-sans max-w-2xl">
       <Input
         className="text-lg mt-4 font-tiempos-headline"
         placeholder="Search for a person"
@@ -88,7 +88,10 @@ export const Search = () => {
 
           return (
             <Dialog key={item.id}>
-              <DialogTrigger key={item.id} className="bg-slate-50 rounded p-3">
+              <DialogTrigger
+                key={item.id}
+                className="bg-slate-50 rounded p-4 text-left"
+              >
                 <h2 className="font-medium text-lg font-tiempos-headline">
                   {item.data.name}
                 </h2>
