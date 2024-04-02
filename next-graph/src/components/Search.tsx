@@ -87,7 +87,7 @@ export const Search = () => {
         placeholder="Search for a person"
         onChange={handleSearch}
       />
-      <div className="mt-2 flex flex-col gap-4">
+      <div className="mt-4 flex flex-col gap-4">
         {searchResults.map((item) => {
           const currentNode = nodeMap.get(item.id);
           const neighbors = currentNode?.links.map((link) => {
