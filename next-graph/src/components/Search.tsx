@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { titleCase } from "@/lib/utils";
 import graphData from "@/summarizedGraphData.json";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
@@ -98,17 +99,20 @@ export const Search = () => {
             return neighborNode;
           });
 
-          // dedup neighbors with set
+          // Title case the name
+          const name = titleCase(item.data.name);
 
+          // dedup neighbors with set
           const dedupNeighbors = Array.from(new Set(neighbors));
 
-          const major = item.data.major === "N/A" ? "" : item.data.major;
+          const major =
+            item.data.major === "N/A" ? "" : titleCase(item.data.major);
 
           return (
             <Dialog key={`entry-${item.id}`}>
               <DialogTrigger className="bg-slate-50 rounded p-4 text-left">
                 <h2 className="font-medium text-lg font-tiempos-headline">
-                  {item.data.name}
+                  {name}
                 </h2>
                 <p className="font-tiempos-headline font-light text-stone-700">
                   {major}
