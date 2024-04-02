@@ -81,9 +81,9 @@ export const Search = () => {
   }, [searchTerm]);
 
   return (
-    <div className="font-untitled-sans max-w-2xl">
+    <div className="font-untitled-sans max-w-2xl w-full">
       <Input
-        className="text-lg mt-4 font-tiempos-headline"
+        className="text-lg mt-4 font-tiempos-headline w-full"
         placeholder="Search for a person"
         onChange={handleSearch}
       />
