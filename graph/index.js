@@ -12,7 +12,7 @@ const graphConfig = {
   gravity: -10,
   theta: 0.2,
   dragCoeff: 0.3,
-  timeStep: 2,
+  timeStep: 1,
   backgroundColor: 0x0, // (Socratica Black)
 };
 
@@ -61,6 +61,12 @@ renderer.focus();
 
 renderer.on("nodehover", showNodeDetails);
 renderer.on("nodeclick", resetNodeDetails);
+
+const nodeAttendees = document.getElementById("nodeAttendees").textContent;
+console.log(nodeAttendees);
+document.getElementById(
+  "nodeAttendees"
+).textContent = `${json.nodes.length} People`;
 
 function showNodeDetails(node) {
   if (!node) {
