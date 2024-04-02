@@ -9,7 +9,6 @@ import {
 import graphData from "@/summarizedGraphData.json";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
-import { ForceGraph2D } from "react-force-graph";
 import { Input } from "./ui/input";
 
 interface Node {
@@ -30,7 +29,10 @@ interface CustomNode extends Node {
 // Create hashmap of id -> node and attach links to each node
 const nodeMap = new Map<string, CustomNode>();
 graphData.nodes.forEach((node) => {
-  nodeMap.set(node.id, { ...node, links: [] });
+  nodeMap.set(node.id, {
+    ...node,
+    links: [],
+  });
 });
 
 graphData.links.forEach((link) => {
@@ -43,6 +45,24 @@ graphData.links.forEach((link) => {
 
   if (targetNode) {
     targetNode.links.push(link);
+  }
+});
+
+// For all empty links in the nodemap add their best match
+nodeMap.forEach((node) => {
+  if (node.links.length === 0) {
+    const bestMatch = nodeMap.get(node.data.topMatch);
+    if (bestMatch) {
+      nodeMap.set(node.id, {
+        ...node,
+        links: [
+          {
+            source: node.id,
+            target: bestMatch.id,
+          },
+        ],
+      });
+    }
   }
 });
 
@@ -79,39 +99,44 @@ export const Search = () => {
             return neighborNode;
           });
 
-          const graph = {
-            nodes: [currentNode, ...(neighbors as CustomNode[])],
-            links: currentNode?.links,
-          };
-
-          console.log(graph);
+          const major = item.data.major === "N/A" ? "" : item.data.major;
 
           return (
-            <Dialog key={item.id}>
-              <DialogTrigger
-                key={item.id}
-                className="bg-slate-50 rounded p-4 text-left"
-              >
+            <Dialog key={`entry-${item.id}`}>
+              <DialogTrigger className="bg-slate-50 rounded p-4 text-left">
                 <h2 className="font-medium text-lg font-tiempos-headline">
                   {item.data.name}
                 </h2>
                 <p className="font-tiempos-headline font-light text-stone-700">
-                  {item.data.major}
+                  {major}
                 </p>
                 <p className="text-sm text-stone-500">{item.data.response}</p>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] min-h-[30rem]">
+              <DialogContent className="w-full min-h-[30rem]">
                 <DialogHeader>
                   <DialogTitle>Your connections</DialogTitle>
                   <DialogDescription>asdf</DialogDescription>
                 </DialogHeader>
-                <div className="w-full flex justify-center">
-                  <ForceGraph2D
-                    width={300}
-                    height={300}
-                    graphData={graph}
-                    backgroundColor="black"
-                  />
+
+                <div className="h-[60vh] overflow-y-scroll">
+                  {neighbors?.map((neighbor) => {
+                    return (
+                      <div
+                        key={`${neighbor?.id}-node-${item.id}`}
+                        className="mt-4"
+                      >
+                        <h2 className="font-medium text-lg font-tiempos-headline">
+                          {neighbor?.data.name}
+                        </h2>
+                        <p className="font-tiempos-headline font-light text-stone-700">
+                          {neighbor?.data.major}
+                        </p>
+                        <p className="text-sm text-stone-500">
+                          {neighbor?.data.response}
+                        </p>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {/* <DialogFooter>
