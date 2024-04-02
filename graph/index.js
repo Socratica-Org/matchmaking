@@ -8,11 +8,11 @@ const graphConfig = {
   linkConnectionFromColor: 0xffffff, // (#ffffff)
   linkConnectionToColor: 0xffe213, // (#ffe213)
   springLength: 200,
-  springCoeff: 0.00001,
-  gravity: -3,
+  springCoeff: 0.001,
+  gravity: -10,
   theta: 0.2,
   dragCoeff: 0.3,
-  timeStep: 1,
+  timeStep: 2,
   backgroundColor: 0x0, // (Socratica Black)
 };
 
