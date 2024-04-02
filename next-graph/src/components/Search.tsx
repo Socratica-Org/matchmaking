@@ -98,6 +98,10 @@ export const Search = () => {
             return neighborNode;
           });
 
+          // dedup neighbors with set
+
+          const dedupNeighbors = Array.from(new Set(neighbors));
+
           const major = item.data.major === "N/A" ? "" : item.data.major;
 
           return (
@@ -118,7 +122,7 @@ export const Search = () => {
                 </DialogHeader>
 
                 <div className="h-[60vh] overflow-y-scroll">
-                  {neighbors?.map((neighbor) => {
+                  {dedupNeighbors?.map((neighbor) => {
                     return (
                       <div
                         key={`${neighbor?.id}-node-${item.id}`}
