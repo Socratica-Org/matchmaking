@@ -5,7 +5,7 @@ from pydantic import BaseModel
 import chromadb
 
 N_RESULTS = 10
-DISTANCE_THRESHOLD = 1.2
+DISTANCE_THRESHOLD = 1.1
 COLLECTION_TO_PROCESS = "time_prompt_embeddings"
 
 
@@ -60,7 +60,7 @@ def process_collection(collection: chromadb.Collection, nodes: list[Node], links
         print(
             f"{i+1}/{len(results['embeddings'])}: Processing {name} ({self_major})")
 
-        top_match = nearest_ids[0] if distances[0] < DISTANCE_THRESHOLD else ""
+        top_match = nearest_ids[0]  # always give a match
 
         new_node = Node(
             id=self_id,
