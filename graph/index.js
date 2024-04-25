@@ -342,6 +342,7 @@ function searchByNameOrSchool(nodes, query) {
   return resultIds;
 }
 
+// uncomment this if you want search in the graph
 // showSearchBar();
 
 cycleThroughNodes();
