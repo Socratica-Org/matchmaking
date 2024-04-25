@@ -6,9 +6,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { titleCase } from "@/lib/utils";
+import Fuse from "fuse.js";
 
 // change this to summarizedGraphData if AI summarization is enabled
-import graphData from "@/graphData.json";
+import graphData from "../../../graphData.json";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
 import { Input } from "./ui/input";
@@ -31,8 +32,12 @@ interface CustomNode extends Node {
 // Create hashmap of id -> node and attach links to each node
 const nodeMap = new Map<string, CustomNode>();
 graphData.nodes.forEach((node) => {
-  nodeMap.set(node.id, {
+  return nodeMap.set(node.id, {
     ...node,
+    data: {
+      ...node.data,
+      originalResponse: "",
+    },
     links: [],
   });
 });
@@ -76,10 +81,19 @@ export const Search = () => {
     setSearchTerm(event.target.value);
   };
 
+  // Add this inside your component before the useEffect
+  const fuseOptions = {
+    keys: ["data.name", "data.response"],
+    includeScore: true,
+    isCaseSensitive: false,
+    findAllMatches: true,
+    threshold: 0.4,
+  };
+
+  const fuse = new Fuse(graphData.nodes, fuseOptions);
+
   useEffect(() => {
-    const results = graphData.nodes.filter((node) =>
-      node.data.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const results = fuse.search(searchTerm).map((result) => result.item);
     setSearchResults(results);
   }, [searchTerm]);
 
@@ -87,7 +101,7 @@ export const Search = () => {
     <div className="font-untitled-sans max-w-2xl w-full">
       <Input
         className="text-lg mt-4 font-tiempos-headline w-full"
-        placeholder="Search for a person"
+        placeholder="Search for a person or response"
         onChange={handleSearch}
       />
       <div className="mt-4 flex flex-col gap-4">

@@ -31,13 +31,14 @@ python generate_embeddings.py
 python build_graph.py # to create the graph based on the distance threshold
 python attendees.py # to create initial cache
 ```
-You should now successfully have a `graphData.json` file. You now have the option to summarize each response. For example, 
+
+You should now successfully have a `graphData.json` file. You now have the option to summarize each response. For example,
 
 > i want to learn how to sculpt/pottery! creating something from a block of clay would be incredible but would take a lot of time/lessons.
 
-would become 
+would become
 
-> Would learn how to sculpt and create pottery from clay. 
+> Would learn how to sculpt and create pottery from clay.
 
 We recommend this for events where you can search for people, using the `match` site. If you are just using the graph, this is not necessary.
 
