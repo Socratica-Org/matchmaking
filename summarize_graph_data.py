@@ -4,7 +4,6 @@ import json
 
 from summarize import generate_summary
 
-
 def main():
     # Get cached from attendees.json
     with open("attendees.json", "r") as f:

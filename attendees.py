@@ -18,7 +18,8 @@ def write_attendees(attendees_data, filename):
         json.dump(attendees_data, file, indent=4)
 
 def main():
-    graph_data = read_graph_data('summarizedGraphData.json')
+    ai_summarization = False
+    graph_data = read_graph_data('summarizedGraphData.json' if ai_summarization else 'graphData.json')
     attendees_data = extract_responses(graph_data)
     write_attendees(attendees_data, 'attendees.json')
 

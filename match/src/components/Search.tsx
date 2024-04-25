@@ -6,7 +6,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { titleCase } from "@/lib/utils";
-import graphData from "@/summarizedGraphData.json";
+
+// change this to summarizedGraphData if AI summarization is enabled
+import graphData from "@/graphData.json";
 import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
 import { Input } from "./ui/input";
@@ -122,7 +124,6 @@ export const Search = () => {
               <DialogContent className="w-full min-h-[30rem]">
                 <DialogHeader>
                   <DialogTitle>Potential Connections</DialogTitle>
-                  {/* <DialogDescription>asdf</DialogDescription> */}
                 </DialogHeader>
 
                 <div className="h-[60vh] overflow-y-scroll">

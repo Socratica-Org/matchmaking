@@ -6,8 +6,8 @@ import pandas as pd
 import chromadb
 from utils import chunk_array
 
+# SET THIS TO BE THE COLUMN OF YOUR RESPONSE
 COLUMN_INDEX = 23
-
 
 def generate_embeddings():
     chroma_client = chromadb.PersistentClient(path="chromadb")
@@ -78,7 +78,8 @@ def generate_embeddings():
     print("Performing batch upserts...")
 
     # Split batch data into smaller chunks of 20 participants each
-    chunk_size = 5
+    
+    chunk_size = 5 # This can be any value you would like. We recommend 5
     time_prompts = chunk_array(time_prompts, chunk_size)
     time_ids = chunk_array(time_ids, chunk_size)
     time_metadatas = chunk_array(time_metadatas, chunk_size)

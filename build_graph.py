@@ -1,13 +1,16 @@
 import json
-
 from pydantic import BaseModel
-
 import chromadb
 
+# How many matches an individual can have at maximum
 N_RESULTS = 10
-DISTANCE_THRESHOLD = 1.1
-COLLECTION_TO_PROCESS = "time_prompt_embeddings"
 
+# Larger = more likely to be matched
+DISTANCE_THRESHOLD = 1.1
+
+# Which prompt stored in sqlite to process
+# We define this in generate_embeddings.py
+COLLECTION_TO_PROCESS = "time_prompt_embeddings"
 
 class NodeData(BaseModel):
     name: str
@@ -15,16 +18,13 @@ class NodeData(BaseModel):
     response: str
     topMatch: str
 
-
 class Node(BaseModel):
     id: str
     data: NodeData
 
-
 class Link(BaseModel):
     source: str
     target: str
-
 
 def process_collection(collection: chromadb.Collection, nodes: list[Node], links: list[Link]):
     results = collection.get(
@@ -60,7 +60,8 @@ def process_collection(collection: chromadb.Collection, nodes: list[Node], links
         print(
             f"{i+1}/{len(results['embeddings'])}: Processing {name} ({self_major})")
 
-        top_match = nearest_ids[0]  # always give a match
+        # Always give a match
+        top_match = nearest_ids[0]  
 
         new_node = Node(
             id=self_id,
@@ -84,7 +85,6 @@ def process_collection(collection: chromadb.Collection, nodes: list[Node], links
                     )
                 )
 
-
 def main():
     chroma_client = chromadb.PersistentClient(path="chromadb")
     nodes: list[Node] = []
@@ -98,7 +98,6 @@ def main():
     with open("graphData.json", "w") as f:
         json.dump({"nodes": [n.model_dump() for n in nodes],
                    "links": [l.model_dump() for l in links]}, f)
-
 
 if __name__ == '__main__':
     main()
