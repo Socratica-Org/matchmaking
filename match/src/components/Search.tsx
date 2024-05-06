@@ -29,7 +29,7 @@ interface CustomNode extends Node {
   links: { source: string; target: string }[];
 }
 
-// Create hashmap of id -> node and attach links to each node
+// Create hashmap of id -> node and attach links to each nod
 const nodeMap = new Map<string, CustomNode>();
 graphData.nodes.forEach((node) => {
   return nodeMap.set(node.id, {
@@ -81,19 +81,25 @@ export const Search = () => {
     setSearchTerm(event.target.value);
   };
 
-  // Add this inside your component before the useEffect
   const fuseOptions = {
     keys: ["data.name", "data.response"],
     includeScore: true,
     isCaseSensitive: false,
     findAllMatches: true,
-    threshold: 0.4,
+    threshold: 0.4, // adjust this to be more lenient with search
   };
 
   const fuse = new Fuse(graphData.nodes, fuseOptions);
 
   useEffect(() => {
-    const results = fuse.search(searchTerm).map((result) => result.item);
+    const results = fuse.search(searchTerm).map((result) => ({
+      ...result.item,
+      data: {
+        ...result.item.data,
+        originalResponse: "",
+      },
+    }));
+
     setSearchResults(results);
   }, [searchTerm]);
 
@@ -115,10 +121,7 @@ export const Search = () => {
             return neighborNode;
           });
 
-          // Title case the name
           const name = titleCase(item.data.name);
-
-          // dedup neighbors with set
           const dedupNeighbors = Array.from(new Set(neighbors));
 
           const major =

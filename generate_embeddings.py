@@ -7,7 +7,7 @@ import chromadb
 from utils import chunk_array
 
 # SET THIS TO BE THE COLUMN OF YOUR RESPONSE
-COLUMN_INDEX = 23
+COLUMN_INDEX = 1
 
 def generate_embeddings():
     chroma_client = chromadb.PersistentClient(path="chromadb")

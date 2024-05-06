@@ -97,3 +97,7 @@ To serve:
 ```sh
 pnpm start
 ```
+
+### Deployment
+
+We suggest you deploy using the Vercel CLI, so you do not release personal information in the CSV. You can individually deploy `match` and `graph` with the same compiled dataset. You can check out their documentation: [Vercel CLI Docs](https://vercel.com/docs/cli).
