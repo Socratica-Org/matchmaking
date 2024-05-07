@@ -32,7 +32,11 @@ python build_graph.py # to create the graph based on the distance threshold
 python attendees.py # to create initial cache
 ```
 
-You should now successfully have a `graphData.json` file. You now have the option to summarize each response. For example,
+You should now successfully have a `graphData.json` file.
+
+### Generating summarized data (optional)
+
+You now have the option to summarize each response. For example,
 
 > i want to learn how to sculpt/pottery! creating something from a block of clay would be incredible but would take a lot of time/lessons.
 
@@ -40,10 +44,17 @@ would become
 
 > Would learn how to sculpt and create pottery from clay.
 
-We recommend this for events where you can search for people, using the `match` site. If you are just using the graph, this is not necessary.
+We recommend this for events where you can search for people, using the `match` site. If you are just using the graph, **this is not necessary.**
 
 ```sh
 python summarize_graph_data.py # (OPTIONAL) to summarize responses with LLM
+```
+
+then, uncomment the line in `graph/index.js`:
+
+```js
+// Use the below line if you want to use the summarized graph instead
+//const json = require("../summarizedGraphData.json");
 ```
 
 If you choose to summarize the data with an LLM, a `summarizedGraphData.json` file will be present too. If you do the AI summarization, change `ai_summarization` in `attendees.py` to True. Then, run attendees again to recache.
@@ -60,22 +71,22 @@ In the **graph/** directory
 
 ```sh
 cd graph
-pnpm i
-pnpm run dev
+npm i
+npm run dev
 ```
 
-For Tailwind, concurrently:
+Next, concurrently run Tailwind in a new terminal:
 
 ```sh
-pnpm run tailwind
+npm run tailwind
 ```
 
-Then open **graph/index.html** in a browser.
+Finally, open **graph/index.html** in a browser.
 
 To serve:
 
 ```sh
-pnpm start
+npm start
 ```
 
 ## Developing the Matchmaking Site
@@ -86,8 +97,8 @@ Now in the **match/** directory
 
 ```sh
 cd match
-pnpm i
-pnpm run dev
+npm i
+npm run dev
 ```
 
 Then open **localhost:3000** in a browser.
@@ -95,7 +106,7 @@ Then open **localhost:3000** in a browser.
 To serve:
 
 ```sh
-pnpm start
+npm start
 ```
 
 ### Deployment
