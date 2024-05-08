@@ -19,3 +19,4 @@ attendees.json
 .vercel
 
 .env
+.DS_Store
